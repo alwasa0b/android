@@ -25,10 +25,10 @@ public class ActivityTwo extends Activity {
 	// onResume(), called mCreate, etc.
 	// You will need to increment these variables' values when their
 	// corresponding lifecycle methods get called
-	private int mCreate;
-	private int mStart;
-	private int mResume;
-	private int mRestart;
+	private static int mCreate=0;
+	private static int mStart=0;
+	private static int mResume=0;
+	private static int mRestart=0;
 
 
 	// TODO: Create variables for each of the TextViews, called
@@ -47,6 +47,9 @@ public class ActivityTwo extends Activity {
 		// Hint: Access the TextView by calling Activity's findViewById()
 		// textView1 = (TextView) findViewById(R.id.textView1);
 		mTvCreate = (TextView) findViewById(R.id.create);
+		mTvStart = (TextView) findViewById(R.id.start);
+		mTvResume = (TextView) findViewById(R.id.resume);
+		mTvRestart = (TextView) findViewById(R.id.restart);
 
 
 
@@ -73,20 +76,24 @@ public class ActivityTwo extends Activity {
 			// TODO:
 			// Restore value of counters from saved state
 			// Only need 4 lines of code, one for every count variable
-
-
+			
+			mCreate=savedInstanceState.getInt(CREATE_KEY);
+			mRestart=savedInstanceState.getInt(RESTART_KEY);
+			mStart=savedInstanceState.getInt(START_KEY);
+			mResume=savedInstanceState.getInt(RESUME_KEY);
 
 		}
 
 		// TODO: Emit LogCat message
-
+		Log.i(TAG,CREATE_KEY);
 
 
 		// TODO:
 		// Update the appropriate count variable
 		// Update the user interface via the displayCounts() method
 
-
+		mCreate++;
+		displayCounts();
 
 
 	}
@@ -98,13 +105,14 @@ public class ActivityTwo extends Activity {
 		super.onStart();
 
 		// TODO: Emit LogCat message
-
+		Log.i(TAG,START_KEY);
 
 		// TODO:
 		// Update the appropriate count variable
 		// Update the user interface
 
-
+		mStart++;		
+		displayCounts();
 
 	}
 
@@ -113,12 +121,13 @@ public class ActivityTwo extends Activity {
 		super.onResume();
 
 		// TODO: Emit LogCat message
-
+		Log.i(TAG,RESUME_KEY);
 
 		// TODO:
 		// Update the appropriate count variable
 		// Update the user interface
-
+		mResume++;
+		displayCounts();
 
 
 
@@ -129,7 +138,7 @@ public class ActivityTwo extends Activity {
 		super.onPause();
 
 		// TODO: Emit LogCat message
-
+		Log.i(TAG,"onPause");
 
 
 	}
@@ -139,7 +148,7 @@ public class ActivityTwo extends Activity {
 		super.onStop();
 
 		// TODO: Emit LogCat message
-
+		Log.i(TAG,"onStop");
 
 
 	}
@@ -149,12 +158,13 @@ public class ActivityTwo extends Activity {
 		super.onRestart();
 
 		// TODO: Emit LogCat message
-
+		Log.i(TAG,RESTART_KEY);
 
 		// TODO:
 		// Update the appropriate count variable
 		// Update the user interface
-
+		mRestart++;
+		displayCounts();
 
 
 	}
@@ -164,7 +174,7 @@ public class ActivityTwo extends Activity {
 		super.onDestroy();
 
 		// TODO: Emit LogCat message
-
+		Log.i(TAG,"onDestroy");
 	}
 
 	@Override
@@ -174,6 +184,10 @@ public class ActivityTwo extends Activity {
 		// Save counter state information with a collection of key-value pairs
 		// 4 lines of code, one for every count variable
 
+		savedInstanceState.putInt(CREATE_KEY, mCreate);
+		savedInstanceState.putInt(RESTART_KEY, mRestart);
+		savedInstanceState.putInt(START_KEY, mStart);
+		savedInstanceState.putInt(RESUME_KEY, mResume);
 
 
 
