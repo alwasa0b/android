@@ -25,13 +25,19 @@ public class ActivityTwo extends Activity {
 	// onResume(), called mCreate, etc.
 	// You will need to increment these variables' values when their
 	// corresponding lifecycle methods get called
-
+	private int mCreate;
+	private int mStart;
+	private int mResume;
+	private int mRestart;
 
 
 	// TODO: Create variables for each of the TextViews, called
         // mTvCreate, etc. 
-
-
+	private TextView mTvCreate;
+	private TextView mTvStart;
+	private TextView mTvResume;
+	private TextView mTvRestart;
+	
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
@@ -40,6 +46,7 @@ public class ActivityTwo extends Activity {
 		// TODO: Assign the appropriate TextViews to the TextView variables
 		// Hint: Access the TextView by calling Activity's findViewById()
 		// textView1 = (TextView) findViewById(R.id.textView1);
+		mTvCreate = (TextView) findViewById(R.id.create);
 
 
 
@@ -54,8 +61,8 @@ public class ActivityTwo extends Activity {
 				// TODO:
 				// This function closes Activity Two
 				// Hint: use Context's finish() method
-
-
+				finish();
+				
 			
 			}
 		});

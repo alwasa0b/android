@@ -18,6 +18,9 @@ public class ActivityOne extends Activity {
 
 	// String for LogCat documentation
 	private final static String TAG = "Lab-ActivityOne";
+
+
+
 	
 	// Lifecycle counters
 
@@ -26,12 +29,18 @@ public class ActivityOne extends Activity {
 	// onResume(), called mCreate, etc.
 	// You will need to increment these variables' values when their
 	// corresponding lifecycle methods get called
-
+	private int mCreate;
+	private int mStart;
+	private int mResume;
+	private int mRestart;
 
 
 	// TODO: Create variables for each of the TextViews, called
         // mTvCreate, etc. 
-	
+	private TextView mTvCreate;
+	private TextView mTvStart;
+	private TextView mTvResume;
+	private TextView mTvRestart;
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
@@ -40,7 +49,7 @@ public class ActivityOne extends Activity {
 		// TODO: Assign the appropriate TextViews to the TextView variables
 		// Hint: Access the TextView by calling Activity's findViewById()
 		// textView1 = (TextView) findViewById(R.id.textView1);
-
+		mTvCreate = (TextView) findViewById(R.id.create);
 
 
 
@@ -53,12 +62,12 @@ public class ActivityOne extends Activity {
 				// TODO:
 				// Launch Activity Two
 				// Hint: use Context's startActivity() method
-
+				
 				// Create an intent stating which Activity you would like to start
-
+				Intent intent = new ActivityTwo().getIntent();
 				
 				// Launch the Activity using the intent
-
+				startActivity(intent);
 			
 			}
 		});
@@ -72,15 +81,17 @@ public class ActivityOne extends Activity {
 			
 		
 		}
-
+	
+		
+		
 		// TODO: Emit LogCat message
-
+		Log.i(TAG,CREATE_KEY );
 
 		// TODO:
 		// Update the appropriate count variable
 		// Update the user interface via the displayCounts() method
 
-
+		mCreate++;
 
 	}
 
@@ -91,26 +102,29 @@ public class ActivityOne extends Activity {
 		super.onStart();
 
 		// TODO: Emit LogCat message
-
+		Log.i(TAG,START_KEY);
 
 		// TODO:
 		// Update the appropriate count variable
 		// Update the user interface
+		mStart++;		
+		displayCounts();
 
-
+		
 	}
 
 	@Override
 	public void onResume() {
 		super.onResume();
-
+		
 		// TODO: Emit LogCat message
-
+		Log.i(TAG,RESUME_KEY);
 
 		// TODO:
 		// Update the appropriate count variable
 		// Update the user interface
-
+		mResume++;
+		displayCounts();
 
 	}
 
@@ -129,19 +143,20 @@ public class ActivityOne extends Activity {
 		// TODO: Emit LogCat message
 
 	}
-
+	
+	
 	@Override
 	public void onRestart() {
 		super.onRestart();
 
 		// TODO: Emit LogCat message
 
-
+		Log.i(TAG,RESTART_KEY);
 		// TODO:
 		// Update the appropriate count variable
 		// Update the user interface
-
-
+		mRestart++;
+		displayCounts();
 
 	}
 
