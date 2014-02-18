@@ -8,6 +8,7 @@ import android.util.Log;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.widget.Button;
+import android.widget.EditText;
 import android.widget.TextView;
 
 public class ActivityLoaderActivity extends Activity {
@@ -29,7 +30,7 @@ public class ActivityLoaderActivity extends Activity {
 		
 		// Get reference to the textView
 		mUserTextView = (TextView) findViewById(R.id.textView1);
-
+		
 		// Declare and setup Explicit Activation button
 		Button explicitActivationButton = (Button) findViewById(R.id.explicit_activation_button);
 		explicitActivationButton.setOnClickListener(new OnClickListener() {
@@ -66,8 +67,11 @@ public class ActivityLoaderActivity extends Activity {
 		Log.i(TAG,"Entered startExplicitActivation()");
 		
 		// TODO - Create a new intent to launch the ExplicitlyLoadedActivity class
+		Intent newIntent = new Intent(this,ExplicitlyLoadedActivity.class);
 		
 		// TODO - Start an Activity using that intent and the request code defined above
+		
+		startActivityForResult(newIntent, GET_TEXT_REQUEST_CODE);
 
 
 	}
@@ -97,13 +101,16 @@ public class ActivityLoaderActivity extends Activity {
 
 	@Override
 	protected void onActivityResult(int requestCode, int resultCode, Intent data) {
-
+		
 		Log.i(TAG, "Entered onActivityResult()");
 		
 		// TODO - Process the result only if this method received both a
 		// RESULT_OK result code and a recognized request code
 		// If so, update the Textview showing the user-entered text.
-
+		if(resultCode==RESULT_OK && requestCode==GET_TEXT_REQUEST_CODE){
+		     String s =	data.getStringExtra("s");
+			 mUserTextView.setText(s);
+		}
 
 	}
 }
