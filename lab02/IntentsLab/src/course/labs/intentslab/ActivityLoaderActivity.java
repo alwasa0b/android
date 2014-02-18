@@ -1,5 +1,7 @@
 package course.labs.intentslab;
 
+import java.net.URISyntaxException;
+
 import android.app.Activity;
 import android.content.Intent;
 import android.net.Uri;
@@ -84,14 +86,17 @@ public class ActivityLoaderActivity extends Activity {
 
 		// TODO - Create a base intent for viewing a URL 
 		// (HINT:  second parameter uses parse() from the Uri class)
-		
+		Uri googleUri = Uri.parse("http://www.google.com");
+
+		Intent baseIntent = new Intent(Intent.ACTION_VIEW,googleUri);
+	
 		
 		// TODO - Create a chooser intent, for choosing which Activity
 		// will carry out the baseIntent. Store the Intent in the 
 		// chooserIntent variable below. HINT: using the Intent class' 
 		// createChooser())
 		
-		Intent chooserIntent = null;
+		Intent chooserIntent = Intent.createChooser(baseIntent, "choose App");
 
 		Log.i(TAG,"Chooser Intent Action:" + chooserIntent.getAction());
 		// TODO - Start the chooser Activity, using the chooser intent
