@@ -10,10 +10,12 @@
 
     <!--  TODO - add uses-permission elements -->
 
-        
+       
        
         
        <uses-permission android:name="com.android.browser.permission.READ_HISTORY_BOOKMARKS" />
+       <uses-permission android:name="course.labs.permissions.DANGEROUS_ACTIVITY_PERM" />
+       <uses-permission android:name="course.labs.permissions.DANGEROUS_ACTIVITY" />
 
     <application
         android:allowBackup="true"
