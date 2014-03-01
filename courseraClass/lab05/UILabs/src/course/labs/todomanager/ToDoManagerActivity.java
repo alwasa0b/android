@@ -13,6 +13,7 @@ import java.text.ParseException;
 import java.util.Date;
 
 import android.app.ListActivity;
+import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
@@ -21,6 +22,7 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.View.OnClickListener;
+import android.widget.ListView;
 import android.widget.TextView;
 import course.labs.todomanager.ToDoItem.Priority;
 import course.labs.todomanager.ToDoItem.Status;
@@ -44,17 +46,19 @@ public class ToDoManagerActivity extends ListActivity {
 		super.onCreate(savedInstanceState);
 
 		// Create a new TodoListAdapter for this ListActivity's ListView
-		mAdapter = new ToDoListAdapter(getApplicationContext());
+		mAdapter = new ToDoListAdapter(this);
 
 		// Put divider between ToDoItems and FooterView
+		
 		getListView().setFooterDividersEnabled(true);
 
 		//TODO - Inflate footerView for footer_view.xml file
 
-		TextView footerView = null;
-
+		LayoutInflater  inflater = (LayoutInflater)getSystemService(Context.LAYOUT_INFLATER_SERVICE);
+		TextView footerView = (TextView)inflater.inflate(R.layout.footer_view, null);
 		//TODO - Add footerView to ListView
-
+		ListView ls = new ListView(getApplicationContext());
+		ls.addFooterView(footerView);
 		footerView.setOnClickListener(new OnClickListener() {
 			@Override
 			public void onClick(View v) {
