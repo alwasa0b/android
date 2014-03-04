@@ -117,22 +117,23 @@ public class ToDoListAdapter extends BaseAdapter {
 				
 				// TODO - Set up and implement an OnCheckedChangeListener, which 
 				// is called when the user toggles the status checkbox
-
+				toDoItem.setStatus(Status.DONE);
+				
 
 			
 			}
 		});
 
 		//TODO - Display Priority in a TextView
-
-		final TextView priorityView = null;
-
+		
+		final TextView priorityView = (TextView)itemLayout.findViewById(R.id.priorityView);
+	    priorityView.setText(toDoItem.getPriority().toString());
 		
 		// TODO - Display Time and Date. 
 		// Hint - use ToDoItem.FORMAT.format(toDoItem.getDate()) to get date and time String
 
-		final TextView dateView = null;
-				
+		final TextView dateView = (TextView)itemLayout.findViewById(R.id.dateView);
+		dateView.setText(ToDoItem.FORMAT.format(toDoItem.getDate()));
 
 		// Return the View you just created
 		return itemLayout;

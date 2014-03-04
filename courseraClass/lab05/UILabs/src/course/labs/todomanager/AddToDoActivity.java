@@ -130,13 +130,7 @@ public class AddToDoActivity extends Activity {
 				log("Entered submitButton.OnClickListener.onClick()");
 
 				// Gather ToDoItem data  
-				mTitleText = (EditText) findViewById(R.id.title);
-				mDefaultStatusButton = (RadioButton) findViewById(R.id.statusNotDone);
-				mDefaultPriorityButton = (RadioButton) findViewById(R.id.medPriority);
-				mPriorityRadioGroup = (RadioGroup) findViewById(R.id.priorityGroup);
-				mStatusRadioGroup = (RadioGroup) findViewById(R.id.statusGroup);
-				dateView = (TextView) findViewById(R.id.date);
-				timeView = (TextView) findViewById(R.id.time);
+				
 				
 				//TODO - Get Priority
 				
@@ -156,7 +150,7 @@ public class AddToDoActivity extends Activity {
 				ToDoItem.packageIntent(data, titleString, priority, status, fullDate);
 
 				//TODO - return data Intent and finish
-				setResult(RESULT_OK,getIntent());
+				setResult(RESULT_OK,data);
 				finish();
 				
 				

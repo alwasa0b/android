@@ -89,12 +89,8 @@ public class ToDoManagerActivity extends ListActivity {
 	        // Make sure the request was successful
 	        if (resultCode == RESULT_OK) {
 	        
-	        	Bundle extras = getIntent().getExtras();
-	        	ToDoItem a = new ToDoItem(extras.getString("titleString"),
-	        			Priority.MED
-	        			,Status.DONE
-	        					,new Date()
-	        					);
+	        	
+	        	ToDoItem a = new ToDoItem(data);
 	        	mAdapter.add(a);
 	        }
 	     }
