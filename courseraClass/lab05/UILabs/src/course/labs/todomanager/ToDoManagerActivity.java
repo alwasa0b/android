@@ -15,6 +15,7 @@ import java.util.Date;
 import android.app.ListActivity;
 import android.content.Context;
 import android.content.Intent;
+import android.net.Uri;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -46,19 +47,18 @@ public class ToDoManagerActivity extends ListActivity {
 		super.onCreate(savedInstanceState);
 
 		// Create a new TodoListAdapter for this ListActivity's ListView
-		mAdapter = new ToDoListAdapter(this);
+		mAdapter = new ToDoListAdapter(getApplicationContext());
 
 		// Put divider between ToDoItems and FooterView
-		
 		getListView().setFooterDividersEnabled(true);
 
 		//TODO - Inflate footerView for footer_view.xml file
-
-		LayoutInflater  inflater = (LayoutInflater)getSystemService(Context.LAYOUT_INFLATER_SERVICE);
-		TextView footerView = (TextView)inflater.inflate(R.layout.footer_view, null);
+		 TextView footerView = (TextView) getLayoutInflater().inflate(R.layout.footer_view, null);
+	     
+	     
 		//TODO - Add footerView to ListView
-		ListView ls = new ListView(getApplicationContext());
-		ls.addFooterView(footerView);
+	     getListView().addFooterView(footerView);
+		
 		footerView.setOnClickListener(new OnClickListener() {
 			@Override
 			public void onClick(View v) {
@@ -66,12 +66,14 @@ public class ToDoManagerActivity extends ListActivity {
 				log("Entered footerView.OnClickListener.onClick()");
 
 				//TODO - Attach Listener to FooterView. Implement onClick().
-
+				
+				Intent intent = new Intent(ToDoManagerActivity.this, AddToDoActivity.class);
+				startActivityForResult(intent, ADD_TODO_ITEM_REQUEST);
 			}
 		});
 
 		//TODO - Attach the adapter to this ListActivity's ListView
-
+		setListAdapter(mAdapter);
 	}
 
 	@Override
@@ -83,6 +85,19 @@ public class ToDoManagerActivity extends ListActivity {
 		// If user submitted a new ToDoItem
 		// Create a new ToDoItem from the data Intent
 		// and then add it to the adapter
+		if (requestCode == ADD_TODO_ITEM_REQUEST) {
+	        // Make sure the request was successful
+	        if (resultCode == RESULT_OK) {
+	        
+	        	Bundle extras = getIntent().getExtras();
+	        	ToDoItem a = new ToDoItem(extras.getString("titleString"),
+	        			Priority.MED
+	        			,Status.DONE
+	        					,new Date()
+	        					);
+	        	mAdapter.add(a);
+	        }
+	     }
 
 	}
 

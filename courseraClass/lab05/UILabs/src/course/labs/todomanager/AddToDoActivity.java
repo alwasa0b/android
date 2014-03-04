@@ -93,6 +93,7 @@ public class AddToDoActivity extends Activity {
 				log("Entered cancelButton.OnClickListener.onClick()");
 
 				//TODO - Implement onClick().  
+				finish();
 
 			}
 		});
@@ -106,10 +107,15 @@ public class AddToDoActivity extends Activity {
 				log("Entered resetButton.OnClickListener.onClick()");
 
 				//TODO - Reset data fields to default values
-				
-
+		
+				mTitleText.setText(""); 
+				mDefaultStatusButton.setChecked(true); 
+				mDefaultPriorityButton.setChecked(true); 
+		
+				dateView = (TextView) findViewById(R.id.date);
+				timeView = (TextView) findViewById(R.id.time);
 			
-			
+				setDefaultDateTime();
 			
 			}
 		});
@@ -124,15 +130,23 @@ public class AddToDoActivity extends Activity {
 				log("Entered submitButton.OnClickListener.onClick()");
 
 				// Gather ToDoItem data  
+				mTitleText = (EditText) findViewById(R.id.title);
+				mDefaultStatusButton = (RadioButton) findViewById(R.id.statusNotDone);
+				mDefaultPriorityButton = (RadioButton) findViewById(R.id.medPriority);
+				mPriorityRadioGroup = (RadioGroup) findViewById(R.id.priorityGroup);
+				mStatusRadioGroup = (RadioGroup) findViewById(R.id.statusGroup);
+				dateView = (TextView) findViewById(R.id.date);
+				timeView = (TextView) findViewById(R.id.time);
 				
 				//TODO - Get Priority
-				Priority priority = null;
+				
+				Priority priority = getPriority();
 
 				//TODO -  Get Status
-				Status status = null;
+				Status status = getStatus();
 
 				//TODO -  Title
-				String titleString = null;
+				String titleString =mTitleText.getText().toString();
 
 				// Date
 				String fullDate = dateString + " " + timeString;
@@ -142,8 +156,8 @@ public class AddToDoActivity extends Activity {
 				ToDoItem.packageIntent(data, titleString, priority, status, fullDate);
 
 				//TODO - return data Intent and finish
-				
-
+				setResult(RESULT_OK,getIntent());
+				finish();
 				
 				
 			}
