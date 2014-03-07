@@ -88,7 +88,7 @@ public class BubbleActivity extends Activity {
 				/ mAudioManager.getStreamMaxVolume(AudioManager.STREAM_MUSIC);
 
 		// TODO - make a new SoundPool, allowing up to 10 streams 
-		mSoundPool = new SoundPool(10, AudioManager.USE_DEFAULT_STREAM_TYPE, 0);
+		mSoundPool = new SoundPool(10, AudioManager.STREAM_MUSIC, 0);
 
 		// TODO - set a SoundPool OnLoadCompletedListener that calls setupGestureDetector()
 		mSoundPool.setOnLoadCompleteListener(new SoundPool.OnLoadCompleteListener(){
@@ -97,7 +97,11 @@ public class BubbleActivity extends Activity {
 			public void onLoadComplete(SoundPool soundPool, int sampleId,
 					int status) {
 				// TODO Auto-generated method stub
-				setupGestureDetector();
+				if (status==0){
+					setupGestureDetector();
+					
+				}
+			
 			}
 			
 		});
@@ -138,7 +142,7 @@ public class BubbleActivity extends Activity {
 				// TODO - Implement onFling actions.
 				// You can get all Views in mFrame using the
 				// ViewGroup.getChildCount() method
-				mFrame.getChildCount();
+				int allBubbles = mFrame.getChildCount();
 				
 				
 				
@@ -157,7 +161,7 @@ public class BubbleActivity extends Activity {
 				// You can get all Views in mFrame using the
 				// ViewGroup.getChildCount() method
 
-
+				
 				
 				
 				
@@ -252,8 +256,8 @@ public class BubbleActivity extends Activity {
 			if (speedMode == RANDOM) {
 				
 				// TODO - set rotation in range [1..3]
-				mDRotate = 0;
-
+				//mDRotate = 0;
+				mDRotate=new Random().nextLong();
 				
 			} else {
 			
@@ -344,7 +348,7 @@ public class BubbleActivity extends Activity {
 		private synchronized boolean intersects(float x, float y) {
 
 			// TODO - Return true if the BubbleView intersects position (x,y)
-
+		
 			return false;
 		}
 
@@ -399,22 +403,20 @@ public class BubbleActivity extends Activity {
 		protected synchronized void onDraw(Canvas canvas) {
 
 			// TODO - save the canvas
-
+			canvas.save();
 
 			// TODO - increase the rotation of the original image by mDRotate
-
-
+			
 			
 			// TODO Rotate the canvas by current rotation
-
+			canvas.rotate(mDRotate);
 			
 			
 			// TODO - draw the bitmap at it's new location
-			
 
 			
 			// TODO - restore the canvas
-
+			canvas.restore();
 
 			
 		}
