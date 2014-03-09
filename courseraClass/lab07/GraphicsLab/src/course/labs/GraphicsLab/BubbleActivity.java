@@ -147,9 +147,10 @@ public class BubbleActivity extends Activity {
 
 
 				for(int i=0;i<mFrame.getChildCount();i++){
-					if(((BubbleView)mFrame.getChildAt(i)).intersects(event1.getX(), event1.getY())){
+					if(((BubbleView)mFrame.getChildAt(i)).intersects(event1.getRawX(), event1.getRawY())){
 						Log.i("Intersects", "True");
-						((BubbleView)mFrame.getChildAt(i)).stop(false);
+						((BubbleView)mFrame.getChildAt(i)).deflect(velocityX, velocityY);
+						return true;
 					}
 				}
 
@@ -169,8 +170,8 @@ public class BubbleActivity extends Activity {
 				// ViewGroup.getChildCount() method
 				if(mFrame.getChildCount()>0){
 					for(int i=0;i<mFrame.getChildCount();i++){
-						if(((BubbleView)mFrame.getChildAt(i)).intersects(event.getX(), event.getY())){
-							Log.i("Intersects", "True");
+						if(((BubbleView)mFrame.getChildAt(i)).intersects(event.getRawX(), event.getRawY())){
+							
 							((BubbleView)mFrame.getChildAt(i)).stop(false);
 							return true;
 
@@ -178,7 +179,7 @@ public class BubbleActivity extends Activity {
 						}
 					}
 				}
-				BubbleView b = new BubbleView(mFrame.getContext(), event.getX(), event.getY());
+				BubbleView b = new BubbleView(mFrame.getContext(), event.getRawX(), event.getRawY());
 				b.start();
 				mFrame.addView(b);
 				return true;
@@ -251,7 +252,7 @@ public class BubbleActivity extends Activity {
 
 				// TODO - set rotation in range [1..3]
 				//mDRotate = 0;
-				mDRotate=Long.valueOf(new Random().nextInt(3)+1);
+				mDRotate=r.nextInt(3)+1;
 
 			} else {
 
@@ -285,8 +286,8 @@ public class BubbleActivity extends Activity {
 				// Limit movement speed in the x and y
 				// direction to [-3..3].
 
-				mDx +=(r.nextInt(7)-3);
-				mDy +=(r.nextInt(7)-3);
+				mDx =(r.nextInt(7)-3);
+				mDy =(r.nextInt(7)-3);
 
 
 
@@ -331,7 +332,7 @@ public class BubbleActivity extends Activity {
 					// Otherwise, request that the BubbleView be redrawn. 
 
 
-					if(!moveWhileOnScreen()){
+					if(moveWhileOnScreen()){
 						BubbleView.this.postInvalidate();
 					}else {stop(false);}
 
@@ -346,10 +347,10 @@ public class BubbleActivity extends Activity {
 			// TODO - Return true if the BubbleView intersects position (x,y)
 			if ((x >= mXPos) && (x <= (mXPos + mScaledBitmapWidth))
 					&& (y >= mYPos) && (y <= (mYPos + mScaledBitmapWidth))) {
-				Log.i("Intersects", "True");
+				Log.i("bamm", "True");
 				return true;
 			} else {
-				Log.i("Intersects", "False");
+			
 				return false;
 			}
 		}
@@ -379,7 +380,6 @@ public class BubbleActivity extends Activity {
 							// TODO - If the bubble was popped by user,
 							// play the popping sound
 
-
 						}
 
 						log("Bubble removed from view!");
@@ -395,8 +395,8 @@ public class BubbleActivity extends Activity {
 
 			//TODO - set mDx and mDy to be the new velocities divided by the REFRESH_RATE
 
-			mDx = velocityX/REFRESH_RATE;
-			mDy = velocityY/REFRESH_RATE;
+			mDx = (float)velocityX/REFRESH_RATE;
+			mDy = (float)velocityY/REFRESH_RATE;
 
 		}
 
@@ -428,29 +428,27 @@ public class BubbleActivity extends Activity {
 
 			// TODO - Move the BubbleView
 			// Returns true if the BubbleView has exited the screen
-			if(!isOutOfView()){
-				mXPos+=mDx;
-				mYPos+=mDy;
-				return isOutOfView();
+			
+			mXPos=mDx;
+			mYPos=mDy;
+			if(isOutOfView()){
+				
+				return true;
 			}
 
 			else{
+				
 				return false;
 
 			}
-
-
-
 		}
 
 		private boolean isOutOfView() {
 
 
 			// TODO - Return true if the BubbleView has exited the screen
-			if(mXPos > mDisplayWidth || 
-					mXPos < mDisplayWidth ||
-					mYPos > mDisplayHeight ||
-					mYPos < mDisplayHeight ) return true;
+			if((mXPos < mDisplayWidth || mXPos > mDisplayWidth) && 
+					(mYPos < mDisplayHeight || mYPos > mDisplayHeight)) return true;
 
 			return false;
 
