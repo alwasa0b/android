@@ -349,7 +349,7 @@ public class BubbleActivity extends Activity {
 					(x <= (mXPos + mScaledBitmapWidth)) &&
 					(y >= mYPos) && 
 					(y <= (mYPos + mScaledBitmapWidth))) {
-				Log.i("bamm", "True");
+				//Log.i("bamm", "True");
 				return true;
 			} else {
 			
@@ -382,7 +382,7 @@ public class BubbleActivity extends Activity {
 							// TODO - If the bubble was popped by user,
 							// play the popping sound
 							mSoundPool.play(mSoundID, mStreamVolume, mStreamVolume, 1, 1, (float)1.0);
-							Log.i("sound", "true");
+							//Log.i("sound", "true");
 
 						}
 
@@ -453,7 +453,7 @@ public class BubbleActivity extends Activity {
 			// TODO - Return true if the BubbleView has exited the screen
 			if((mXPos >= 0 && mXPos <= mDisplayWidth) && 
 					(mYPos >= 0 && mYPos <= mDisplayHeight)) return false;
-			Log.i("out", "true");
+			//Log.i("out", "true");
 			return true;
 
 		}
