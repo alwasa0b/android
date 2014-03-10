@@ -109,8 +109,8 @@ public class BubbleActivity extends Activity {
 		});
 
 		// TODO - load the sound from res/raw/bubble_pop.wav
-		mSoundID = R.raw.bubble_pop;
-		mSoundPool.load(this, mSoundID, 1);
+		mSoundID = mSoundPool.load(this, R.raw.bubble_pop, 1);
+	
 		mAudioManager.setSpeakerphoneOn(true);
 		mAudioManager.loadSoundEffects();
 	}
@@ -172,7 +172,7 @@ public class BubbleActivity extends Activity {
 					for(int i=0;i<mFrame.getChildCount();i++){
 						if(((BubbleView)mFrame.getChildAt(i)).intersects(event.getRawX(), event.getRawY())){
 							
-							((BubbleView)mFrame.getChildAt(i)).stop(false);
+							((BubbleView)mFrame.getChildAt(i)).stop(true);
 							return true;
 
 
@@ -381,6 +381,8 @@ public class BubbleActivity extends Activity {
 
 							// TODO - If the bubble was popped by user,
 							// play the popping sound
+							mSoundPool.play(mSoundID, mStreamVolume, mStreamVolume, 1, 1, (float)1.0);
+							Log.i("sound", "true");
 
 						}
 
