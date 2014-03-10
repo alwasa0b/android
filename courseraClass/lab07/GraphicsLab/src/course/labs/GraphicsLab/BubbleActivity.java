@@ -345,8 +345,10 @@ public class BubbleActivity extends Activity {
 		private synchronized boolean intersects(float x, float y) {
 
 			// TODO - Return true if the BubbleView intersects position (x,y)
-			if ((x >= mXPos) && (x <= (mXPos + mScaledBitmapWidth))
-					&& (y >= mYPos) && (y <= (mYPos + mScaledBitmapWidth))) {
+			if ((x >= mXPos) && 
+					(x <= (mXPos + mScaledBitmapWidth)) &&
+					(y >= mYPos) && 
+					(y <= (mYPos + mScaledBitmapWidth))) {
 				Log.i("bamm", "True");
 				return true;
 			} else {
@@ -395,8 +397,8 @@ public class BubbleActivity extends Activity {
 
 			//TODO - set mDx and mDy to be the new velocities divided by the REFRESH_RATE
 
-			mDx = (float)velocityX/REFRESH_RATE;
-			mDy = (float)velocityY/REFRESH_RATE;
+			mDx = (float) (velocityX/(REFRESH_RATE*1.0));
+			mDy = (float) (velocityY/(REFRESH_RATE*1.0));
 
 		}
 
@@ -411,7 +413,7 @@ public class BubbleActivity extends Activity {
 			mRotate+=mDRotate;
 
 			// TODO Rotate the canvas by current rotation
-			canvas.rotate(mRotate);
+			canvas.rotate(mRotate,mXPos+(mScaledBitmapWidth/2), mYPos+(mScaledBitmapWidth/2));
 
 
 			// TODO - draw the bitmap at it's new location
@@ -429,10 +431,10 @@ public class BubbleActivity extends Activity {
 			// TODO - Move the BubbleView
 			// Returns true if the BubbleView has exited the screen
 			
-			mXPos=mDx;
-			mYPos=mDy;
-			if(isOutOfView()){
-				
+			
+			if(!isOutOfView()){
+				mXPos+=mDx;
+				mYPos+=mDy;
 				return true;
 			}
 
@@ -447,10 +449,10 @@ public class BubbleActivity extends Activity {
 
 
 			// TODO - Return true if the BubbleView has exited the screen
-			if((mXPos < mDisplayWidth || mXPos > mDisplayWidth) && 
-					(mYPos < mDisplayHeight || mYPos > mDisplayHeight)) return true;
-
-			return false;
+			if((mXPos >= 0 && mXPos <= mDisplayWidth) && 
+					(mYPos >= 0 && mYPos <= mDisplayHeight)) return false;
+			Log.i("out", "true");
+			return true;
 
 		}
 	}
